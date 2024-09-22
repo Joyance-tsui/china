@@ -9,10 +9,13 @@
             height: 100%;
             margin: 0;
             font-family: Arial, sans-serif;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            overflow-x: hidden;
+            overflow: hidden;
+        }
+        .container {
+            height: 100vh;
             scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
         }
         .page {
             height: 100vh;
@@ -25,6 +28,8 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             position: relative;
         }
         .page::before {
@@ -72,6 +77,24 @@
         #fullscreenBtn:hover {
             background-color: rgba(255, 255, 255, 0.5);
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
         @media (max-width: 600px) {
             .page {
                 justify-content: center;
@@ -83,21 +106,24 @@
 <body>
     <button id="fullscreenBtn">全屏</button>
 
-    <div class="page" style="background-image: url('https://s2.loli.net/2024/09/22/AOJxHL7W8VNthaC.jpg');">
-        <div class="content">
-            <h1>永远的怀念</h1>
-            <p>在这片宁静中，我们缅怀逝者，感恩生命的馈赠。</p>
-            <p>愿逝者安息，愿生者坚强。</p>
-            <p>让我们永远铭记，永远怀念。</p>
+    <div class="container">
+        <div id="page1" class="page" style="background-image: url('https://s2.loli.net/2024/09/22/AOJxHL7W8VNthaC.jpg');">
+            <div class="content">
+                <h1>永远的怀念</h1>
+                <p>在这片宁静中，我们缅怀逝者，感恩生命的馈赠。</p>
+                <p>愿逝者安息，愿生者坚强。</p>
+                <p>让我们永远铭记，永远怀念。</p>
+            </div>
         </div>
-    </div>
 
-    <div class="page" style="background-image: url('https://s2.loli.net/2024/09/22/zXoLIKmTOqSBQv3.jpg');">
-        <div class="content">
-            <h1>生命的意义</h1>
-            <p>每一个生命都是独特而珍贵的。</p>
-            <p>在追忆中，我们找到前进的力量。</p>
-            <p>让我们珍惜当下，活出生命的精彩。</p>
+        <div id="page2" class="page" style="background-image: url('https://s2.loli.net/2024/09/22/JRz4x7Ct8NFPb3d.jpg');">
+            <div class="content">
+                <h1>导航</h1>
+                <div class="nav-buttons">
+                    <button class="nav-button" onclick="scrollToPage('page1')">纪念页</button>
+                    <button class="nav-button" onclick="scrollToPage('page2')">导航页</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -132,7 +158,6 @@
             }
         }
 
-        // 监听全屏变化事件
         document.addEventListener('fullscreenchange', updateFullscreenButtonText);
         document.addEventListener('webkitfullscreenchange', updateFullscreenButtonText);
         document.addEventListener('mozfullscreenchange', updateFullscreenButtonText);
@@ -144,6 +169,10 @@
             } else {
                 fullscreenBtn.textContent = '全屏';
             }
+        }
+
+        function scrollToPage(pageId) {
+            document.getElementById(pageId).scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
